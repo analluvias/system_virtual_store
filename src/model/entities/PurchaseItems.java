@@ -32,6 +32,10 @@ public class PurchaseItems {
         this.quantity = quantity;
     }
 
+    public Double totalPurchaseItems(){
+        return this.getQuantity() * this.getProduct().getProductEspecification().getPrice();
+    }
+
     @Override
     public String toString() {
         return "PurchaseItems{" +
