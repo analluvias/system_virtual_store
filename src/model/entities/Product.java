@@ -1,12 +1,13 @@
 package model.entities;
 
 public class Product {
+    private static Integer sequence=0;
     private ProductEspecification productEspecification;
     private Integer id;
 
-    public Product(ProductEspecification productEspecification, Integer id) {
+    public Product(ProductEspecification productEspecification) {
         this.productEspecification = productEspecification;
-        this.id = id;
+        this.id = sequence++;
     }
 
     public ProductEspecification getProductEspecification() {

@@ -1,15 +1,16 @@
 package model.entities;
 
 public class ProductEspecification {
+    private static Integer sequence=0;
     private String description;
     private Double price;
 
     private Integer id;
 
-    public ProductEspecification(String description, Double price, Integer id) {
+    public ProductEspecification(String description, Double price) {
         this.description = description;
         this.price = price;
-        this.id = id;
+        this.id = sequence++;
     }
 
     public String getDescription() {

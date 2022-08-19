@@ -1,11 +1,12 @@
-package model.entities;
+package model.services;
 
 public class Payment {
+    private static Integer sequence=0;
     private int id;
     private Double price;
 
-    public Payment(int id, Double price) {
-        this.id = id;
+    public Payment(Double price) {
+        this.id = id++;
         this.price = price;
     }
 
