@@ -1,12 +1,13 @@
 package model.entities;
 
 public class PurchaseItems {
+    private static Integer sequence=0;
     private Integer id;
     private Product product;
     private Integer quantity;
 
-    public PurchaseItems(Integer id, Product product, Integer quantity) {
-        this.id = id;
+    public PurchaseItems(Product product, Integer quantity) {
+        this.id = sequence++;
         this.product = product;
         this.quantity = quantity;
     }
