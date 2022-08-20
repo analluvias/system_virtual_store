@@ -1,9 +1,6 @@
 package application;
 
-import model.entities.Cart;
-import model.entities.Product;
-import model.entities.ProductEspecification;
-import model.entities.PurchaseItems;
+import model.entities.*;
 
 public class Program {
     public static void main(String[] args) {
@@ -44,6 +41,11 @@ public class Program {
 
         System.out.println();
         System.out.println(cart1);
+
+        Login login1 = new Login("ana", "123");
+        System.out.println();
+        System.out.println(login1);
+
     }
 
 }
