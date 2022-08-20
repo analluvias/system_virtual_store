@@ -23,6 +23,26 @@ public class Client {
         if (address != null) this.address = address;
     }
 
+    public static Integer getSequence() {
+        return sequence;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Login getLogin() {
+        return login;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "Client{" +

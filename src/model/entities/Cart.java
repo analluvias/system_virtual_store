@@ -18,10 +18,6 @@ public class Cart {
         this.id = sequence++;
     }
 
-    public Cart(List<PurchaseItems> purchaseItemsList) {
-        this.purchaseItemsList = purchaseItemsList;
-    }
-
     public void insertPurchaseItem(PurchaseItems purchaseItems){
         purchaseItemsList.add(purchaseItems);
     }
@@ -54,6 +50,21 @@ public class Cart {
     public void finalizePurchase(){
         Double total = totalCart();
         this.order = OrderFactory.createOrder(total);
+    }
+
+    public String printPurchaseItems(){
+        String message = "";
+
+        for (PurchaseItems purchaseItem : purchaseItemsList) {
+            message += purchaseItem.getProduct().getProductEspecification().getDescription() + " x"+
+                    purchaseItem.getQuantity() + " " +purchaseItem.totalPurchaseItems() + "\n";
+        }
+
+        return message;
+    }
+
+    public Order getOrder() {
+        return order;
     }
 
     @Override

@@ -4,8 +4,8 @@ import model.services.Payment;
 
 public class PaymentFactory {
 
-    public static Payment createPayment(Double price){
-        return new Payment(price);
+    public static Payment createPayment(){
+        return new Payment();
     }
 
 }
