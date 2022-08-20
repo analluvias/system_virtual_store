@@ -34,13 +34,6 @@ public class Program {
         System.out.println(purchaseItems2);
         System.out.println(purchaseItems3);
 
-        Cart cart1 = new Cart();
-        cart1.insertPurchaseItem(purchaseItems1);
-        cart1.insertPurchaseItem(purchaseItems2);
-        cart1.insertPurchaseItem(purchaseItems3);
-
-        System.out.println();
-        System.out.println(cart1);
 
         Client client1 = new Client("joao", "joao@gmail.com", "123",
                 "rua das laranjeiras, 123");
@@ -48,6 +41,21 @@ public class Program {
         System.out.println();
         System.out.println(client1);
 
+        client1.getLogin().generateCart();
+        client1.getLogin().getCart().insertPurchaseItem(purchaseItems1);
+        client1.getLogin().getCart().insertPurchaseItem(purchaseItems2);
+        client1.getLogin().getCart().insertPurchaseItem(purchaseItems3);
+
+        System.out.println(client1.getLogin().getCart().toString());
+
+        client1.getLogin().getCart().finalizePurchase();
+        client1.getLogin().getCart().getOrder().createPayment();
+        String invoice =  client1.getLogin().getCart().
+                getOrder().getPayment().generatePayment(client1, client1.getLogin().getCart(),
+                        client1.getLogin().getCart().getOrder());
+
+        System.out.println();
+        System.out.println(invoice);
     }
 
 }
