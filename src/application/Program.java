@@ -1,5 +1,6 @@
 package application;
 
+import model.entities.Cart;
 import model.entities.Product;
 import model.entities.ProductEspecification;
 import model.entities.PurchaseItems;
@@ -35,6 +36,14 @@ public class Program {
         System.out.println(purchaseItems1);
         System.out.println(purchaseItems2);
         System.out.println(purchaseItems3);
+
+        Cart cart1 = new Cart();
+        cart1.insertPurchaseItem(purchaseItems1);
+        cart1.insertPurchaseItem(purchaseItems2);
+        cart1.insertPurchaseItem(purchaseItems3);
+
+        System.out.println();
+        System.out.println(cart1);
     }
 
 }

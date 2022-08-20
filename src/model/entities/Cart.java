@@ -55,4 +55,14 @@ public class Cart {
         Double total = totalCart();
         this.order = OrderFactory.createOrder(total);
     }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "purchaseItemsList=" + purchaseItemsList.toString() +
+                ", id=" + id +
+                ", status=" + status +
+                ", order=" + order +
+                '}';
+    }
 }
