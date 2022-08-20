@@ -42,9 +42,11 @@ public class Program {
         System.out.println();
         System.out.println(cart1);
 
-        Login login1 = new Login("ana", "123");
+        Client client1 = new Client("joao", "joao@gmail.com", "123",
+                "rua das laranjeiras, 123");
+
         System.out.println();
-        System.out.println(login1);
+        System.out.println(client1);
 
     }
 
