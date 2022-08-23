@@ -67,6 +67,10 @@ public class Cart {
         return order;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "Cart{" +
