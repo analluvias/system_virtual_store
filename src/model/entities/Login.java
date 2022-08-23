@@ -10,6 +10,9 @@ public class Login {
     private Cart cart;
     private Integer id;
 
+    public Login() {
+    }
+
     public Login(String user, String password) {
         this.user = user;
         this.password = password;
@@ -27,8 +30,32 @@ public class Login {
         this.cart = CartFactory.createCart();
     }
 
+    public String getUser() {
+        return user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
     public Cart getCart() {
         return cart;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
