@@ -1,7 +1,9 @@
 package application;
 
+import model.dao.ClientDao;
 import model.dao.DaoFactory;
 import model.dao.LoginDao;
+import model.dao.impl.ClientDaoJDBC;
 import model.dao.impl.LoginDaoJDBC;
 import model.entities.*;
 
@@ -39,6 +41,7 @@ public class Program {
         System.out.println(purchaseItems2);
         System.out.println(purchaseItems3);
 
+        ClientDao clientDao = DaoFactory.createClientDao();
 
         Client client1 = new Client("joao", "joao@gmail.com", "123",
                 "rua das laranjeiras, 123");
@@ -57,34 +60,65 @@ public class Program {
         LoginDao loginDao = DaoFactory.createLoginDao();
 
         loginDao.insert(login1);
-        System.out.println("Inserção no BD: " + login1.getId());
+        System.out.println("insert into BD: " + login1.getId());
 
         Login login2 = client2.getLogin();
 
         loginDao.insert(login2);
-        System.out.println("Inserção no BD: " + login2.getId());
+        System.out.println("insert into BD: " + login2.getId());
 
         System.out.println();
         Login search = loginDao.findBYId(login1.getId());
-        System.out.println("Login cliente 1: "+ search);
+        System.out.println("Login client1: "+ search);
 
         System.out.println();
         List<Login> logins = loginDao.findAll();
         System.out.println();
-        System.out.println("Buscar todos os logins: ");
+        System.out.println("finding all logins: ");
         logins.stream().forEach((l) -> System.out.println(l));
 
         System.out.println();
-        System.out.println("Update primeiro login e findBy id: ");
+        System.out.println("Update first login and findBy id: ");
         login1.setPassword("98765");
         loginDao.update(login1);
         System.out.println(loginDao.findBYId(login1.getId()));
 
-        System.out.println();
+        /*System.out.println();
         System.out.println("Delete segundo login por id: (e print lista dos restantes)");
         loginDao.deleteById(login2.getId());
         logins = loginDao.findAll();
-        logins.stream().forEach((l) -> System.out.println(l));
+        logins.stream().forEach((l) -> System.out.println(l));*/
+
+        System.out.println();
+        System.out.println("insert cliente1 into bd: ");
+        clientDao.insert(client1);
+
+        System.out.println("insert cliente2 into bd: ");
+        clientDao.insert(client2);
+
+        System.out.println();
+        System.out.println("Update address client1: ");
+        client1.setAddress("rua das amoreiras, 321");
+        clientDao.update(client1);
+
+        /*System.out.println();
+        System.out.println("Deletando cliente 1: ");
+        clientDao.deleteById(client1.getId());*/
+
+        System.out.println();
+        System.out.println("Find by id: ");
+        Client searchedByidClient = clientDao.findById(client1.getId(), loginDao);
+        System.out.println(searchedByidClient);
+
+        System.out.println();
+        System.out.println("Find all: ");
+        List<Client> clients = clientDao.findAll(loginDao);
+        clients.stream().forEach((client_) -> System.out.println(client_));
+
+        System.out.println();
+        System.out.println("Find client by login id: ");
+        Client clientByLoginId = clientDao.findByLogin(login1, loginDao);
+        System.out.println(clientByLoginId);
 
         client1.getLogin().getCart().insertPurchaseItem(purchaseItems1);
         client1.getLogin().getCart().insertPurchaseItem(purchaseItems2);

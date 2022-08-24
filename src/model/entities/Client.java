@@ -10,6 +10,10 @@ public class Client {
     private String address;
     private Integer id;
 
+    public Client(){
+
+    }
+
     public Client(String name, String email, String password, String address) {
         this.name = name;
         this.id = sequence++;
@@ -41,6 +45,22 @@ public class Client {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLogin(Login login) {
+        this.login = login;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override

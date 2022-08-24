@@ -12,9 +12,9 @@ public interface ClientDao {
 
     void deleteById(Integer id);
 
-    Client findById(Integer id);
+    Client findById(Integer id, LoginDao loginDao);
 
-    List<Client> findAll();
+    List<Client> findAll(LoginDao loginDao);
 
-    List<Client> findByLogin(Login obj);
+    Client findByLogin(Login obj, LoginDao loginDao);
 }
