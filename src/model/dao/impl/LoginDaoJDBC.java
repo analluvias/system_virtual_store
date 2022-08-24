@@ -174,7 +174,7 @@ public class LoginDaoJDBC implements LoginDao {
         }
     }
 
-    private Login instantiateLogin(ResultSet rs) throws SQLException {
+    protected Login instantiateLogin(ResultSet rs) throws SQLException {
         Login login = new Login();
 
         login.setId(rs.getInt("LOGINID_"));

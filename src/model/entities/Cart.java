@@ -10,11 +10,9 @@ public class Cart {
     private static Integer sequence=0;
     private List<PurchaseItems> purchaseItemsList = new ArrayList<>();
     private Integer id;
-    private Status status;
     private Order order;
 
     public Cart() {
-        this.status = Status.OPENED;
         this.id = sequence++;
     }
 
@@ -76,7 +74,6 @@ public class Cart {
         return "Cart{" +
                 "purchaseItemsList=" + purchaseItemsList.toString() +
                 ", id=" + id +
-                ", status=" + status +
                 ", order=" + order +
                 '}';
     }
