@@ -3,10 +3,7 @@ package model.dao;
 import db.DB;
 import model.dao.ClientDao;
 import model.dao.LoginDao;
-import model.dao.impl.ClientDaoJDBC;
-import model.dao.impl.LoginDaoJDBC;
-import model.dao.impl.ProductEspecificationDaoJDBC;
-import model.dao.impl.PurchaseItemsDaoJDBC;
+import model.dao.impl.*;
 import model.entities.PurchaseItems;
 
 public class DaoFactory {
@@ -26,5 +23,7 @@ public class DaoFactory {
         return new ProductEspecificationDaoJDBC(DB.getConnection());
     }
 
-
+    public static ProductDao createProductDao(){
+        return new ProductDaoJDBC(DB.getConnection());
+    }
 }
