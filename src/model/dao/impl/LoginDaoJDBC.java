@@ -23,7 +23,7 @@ public class LoginDaoJDBC implements LoginDao {
 
         try {
             st = conn.prepareStatement("INSERT INTO LOGIN " +
-                    "(USER_, PASSWORD_, IDCART_) " +
+                    "(USER_, PASSWORD_, CARTID_) " +
                     "VALUES " +
                     "(?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
 
@@ -61,7 +61,7 @@ public class LoginDaoJDBC implements LoginDao {
 
         try {
             st = conn.prepareStatement("UPDATE LOGIN " +
-                    "SET USER_ = ?, PASSWORD_ = ?, IDCART_ = ? " +
+                    "SET USER_ = ?, PASSWORD_ = ?, CARTID_ = ? " +
                     "WHERE LOGINID_ = ?");
 
             st.setString(1, obj.getUser());
