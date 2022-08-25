@@ -18,6 +18,14 @@ public class Product {
         return id;
     }
 
+    public void setProductEspecification(ProductEspecification productEspecification) {
+        this.productEspecification = productEspecification;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
