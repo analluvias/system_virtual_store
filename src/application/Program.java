@@ -91,9 +91,24 @@ public class Program {
         purchaseItemsDao.insert(purchaseItems3);
 
         System.out.println();
-        System.out.println(purchaseItems1);
-        System.out.println(purchaseItems2);
-        System.out.println(purchaseItems3);
+        System.out.println("---Updating purchaseItems1 quantity---");
+        purchaseItems1.setQuantity(2);
+        purchaseItemsDao.update(purchaseItems1);
+
+        /*System.out.println();
+        System.out.println("---Deleting purchaseitems1---");
+        purchaseItemsDao.deleteById(purchaseItems1.getId());*/
+
+        System.out.println();
+        System.out.println("---finding purchaseItems by id---");
+        PurchaseItems purchaseItemsFindById = purchaseItemsDao.findById
+                (purchaseItems3.getId(), productDao, productEspecificationDao);
+        System.out.println(purchaseItemsFindById);
+
+        System.out.println();
+        System.out.println("---listing all purchaseItems---");
+        List<PurchaseItems> purchaseItems = purchaseItemsDao.findAll(productDao, productEspecificationDao);
+        purchaseItems.stream().forEach((purch) -> System.out.println(purch));
 
         ClientDao clientDao = DaoFactory.createClientDao();
 

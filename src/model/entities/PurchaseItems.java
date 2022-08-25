@@ -6,6 +6,10 @@ public class PurchaseItems {
     private Product product;
     private Integer quantity;
 
+    public PurchaseItems(){
+
+    }
+
     public PurchaseItems(Product product, Integer quantity) {
         this.id = sequence++;
         this.product = product;
