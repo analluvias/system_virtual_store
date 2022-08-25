@@ -5,6 +5,10 @@ public class Product {
     private ProductEspecification productEspecification;
     private Integer id;
 
+    public Product(){
+
+    }
+
     public Product(ProductEspecification productEspecification) {
         this.productEspecification = productEspecification;
         this.id = sequence++;

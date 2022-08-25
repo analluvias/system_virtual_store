@@ -59,7 +59,24 @@ public class Program {
 
         System.out.println();
         System.out.println("---Inserting all products into bd---");
+        productDao.insert(product1);
+        productDao.insert(product2);
+        productDao.insert(product3);
+        productDao.insert(product4);
 
+        /*System.out.println();
+        System.out.println("---Deleting product1 by id---");
+        productDao.deleteById(product1.getId());*/
+
+        System.out.println();
+        System.out.println("---find product by id---");
+        Product productFindById = productDao.findById(product3.getId(), productEspecificationDao);
+        System.out.println(productFindById);
+
+        System.out.println();
+        System.out.println("---listing all products---");
+        List<Product> products = productDao.findAll(productEspecificationDao);
+        products.stream().forEach((prod) -> System.out.println(prod));
 
         PurchaseItems purchaseItems1 = new PurchaseItems(product1, 1);
         PurchaseItems purchaseItems2 = new PurchaseItems(product3, 1);
