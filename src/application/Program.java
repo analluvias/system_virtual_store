@@ -3,8 +3,7 @@ package application;
 import model.dao.ClientDao;
 import model.dao.DaoFactory;
 import model.dao.LoginDao;
-import model.dao.impl.ClientDaoJDBC;
-import model.dao.impl.LoginDaoJDBC;
+import model.dao.PurchaseItemsDao;
 import model.entities.*;
 
 import java.util.List;
@@ -35,6 +34,13 @@ public class Program {
         PurchaseItems purchaseItems1 = new PurchaseItems(product1, 1);
         PurchaseItems purchaseItems2 = new PurchaseItems(product3, 1);
         PurchaseItems purchaseItems3 = new PurchaseItems(product4, 3);
+
+        PurchaseItemsDao purchaseItemsDao = DaoFactory.createPurchaseItemsDao();
+
+        System.out.println("Inserting purchaseItems 1, 2 and 3: ");
+        purchaseItemsDao.insert(purchaseItems1);
+        purchaseItemsDao.insert(purchaseItems2);
+        purchaseItemsDao.insert(purchaseItems3);
 
         System.out.println();
         System.out.println(purchaseItems1);

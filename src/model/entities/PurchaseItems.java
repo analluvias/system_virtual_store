@@ -32,6 +32,14 @@ public class PurchaseItems {
         this.quantity = quantity;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     public Double totalPurchaseItems(){
         return this.getQuantity() * this.getProduct().getProductEspecification().getPrice();
     }
