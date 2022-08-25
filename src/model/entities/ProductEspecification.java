@@ -7,6 +7,10 @@ public class ProductEspecification {
 
     private Integer id;
 
+    public ProductEspecification(){
+
+    }
+
     public ProductEspecification(String description, Double price) {
         this.description = description;
         this.price = price;
@@ -33,6 +37,10 @@ public class ProductEspecification {
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "ProductEspecification{" +
@@ -41,4 +49,5 @@ public class ProductEspecification {
                 ", id=" + id +
                 '}';
     }
+
 }

@@ -1,23 +1,48 @@
 package application;
 
-import model.dao.ClientDao;
-import model.dao.DaoFactory;
-import model.dao.LoginDao;
-import model.dao.PurchaseItemsDao;
+import model.dao.*;
 import model.entities.*;
 
 import java.util.List;
 
 public class Program {
     public static void main(String[] args) {
-        ProductEspecification productEspecification1 = new ProductEspecification("Nike sneakers", 150.0);
-        ProductEspecification productEspecification2 = new ProductEspecification("Macbook", 1000.0);
-        ProductEspecification productEspecification3 = new ProductEspecification("Smartwatch", 200.0);
+
+        ProductEspecificationDao productEspecificationDao = DaoFactory.createProductEspecificationDao();
+
+        ProductEspecification productEspecification1 = new ProductEspecification("Nike sneakers", 150.00);
+        ProductEspecification productEspecification2 = new ProductEspecification("Macbook", 1000.00);
+        ProductEspecification productEspecification3 = new ProductEspecification("Smartwatch", 200.00);
 
         System.out.println(productEspecification1);
         System.out.println(productEspecification2);
         System.out.println(productEspecification3);
 
+        System.out.println();
+        System.out.println("---Inserting productEspecification 1, 2 and 3 into db--- ");
+        productEspecificationDao.insert(productEspecification1);
+        productEspecificationDao.insert(productEspecification2);
+        productEspecificationDao.insert(productEspecification3);
+
+        System.out.println();
+        System.out.println("---updating productEspecification1---");
+        productEspecification1.setPrice(155.00);
+        productEspecificationDao.update(productEspecification1);
+
+        /*System.out.println();
+        System.out.println("---deleting productEspecification1 by id---");
+        productEspecificationDao.deleteById(productEspecification1.getId());*/
+
+        System.out.println();
+        System.out.println("---Product especification find by id---");
+        ProductEspecification productEspecificationFindById = productEspecificationDao.
+                findById(productEspecification1.getId());
+        System.out.println(productEspecificationFindById);
+
+        System.out.println();
+        System.out.println("---listing all productEspecification---");
+        List<ProductEspecification> productEspecifications = productEspecificationDao.findAll();
+        productEspecifications.stream().forEach((prod) -> System.out.println(prod));
 
         Product product1 = new Product(productEspecification1);
         Product product2 = new Product(productEspecification1);
@@ -30,6 +55,11 @@ public class Program {
         System.out.println(product3);
         System.out.println(product4);
 
+        ProductDao productDao = DaoFactory.createProductDao();
+
+        System.out.println();
+        System.out.println("---Inserting all products into bd---");
+
 
         PurchaseItems purchaseItems1 = new PurchaseItems(product1, 1);
         PurchaseItems purchaseItems2 = new PurchaseItems(product3, 1);
@@ -37,7 +67,8 @@ public class Program {
 
         PurchaseItemsDao purchaseItemsDao = DaoFactory.createPurchaseItemsDao();
 
-        System.out.println("Inserting purchaseItems 1, 2 and 3: ");
+        System.out.println();
+        System.out.println("---Inserting purchaseItems 1, 2 and 3 into db--- ");
         purchaseItemsDao.insert(purchaseItems1);
         purchaseItemsDao.insert(purchaseItems2);
         purchaseItemsDao.insert(purchaseItems3);
