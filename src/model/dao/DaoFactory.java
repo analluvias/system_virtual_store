@@ -31,4 +31,8 @@ public class DaoFactory {
     public static CartDao createCartDao(){
         return new CartDaoJDBC(DB.getConnection());
     }
+
+    public static OrderDao createOrderDao(){
+        return new OrderDaoJDBC(DB.getConnection());
+    }
 }

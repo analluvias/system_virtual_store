@@ -55,6 +55,10 @@ public class Order {
         this.total = total;
     }
 
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
