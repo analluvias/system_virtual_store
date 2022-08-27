@@ -101,6 +101,23 @@ public class Program {
         Login login1 = client1.getLogin();
         LoginDao loginDao = DaoFactory.createLoginDao();
 
+        CartDao cartDao = DaoFactory.createCartDao();
+
+        System.out.println();
+        System.out.println("---Inserting cart of client1 into db---");
+        client1.getLogin().generateCart();
+        cartDao.insert(client1.getLogin().getCart());
+
+        System.out.println();
+        System.out.println("---Inserting cart of client2 into db---");
+        client2.getLogin().generateCart();
+        cartDao.insert(client2.getLogin().getCart());
+
+        /*System.out.println();
+        System.out.println("---Deleting cart of client1 from db---");
+        cartDao.deleteById(client1.getLogin().getCart().getId());*/
+
+
         loginDao.insert(login1);
         System.out.println("insert login into BD: " + login1.getId());
 
@@ -162,17 +179,6 @@ public class Program {
         Client clientByLoginId = clientDao.findByLogin(login1, loginDao);
         System.out.println(clientByLoginId);
 
-        CartDao cartDao = DaoFactory.createCartDao();
-
-        System.out.println();
-        System.out.println("---Inserting cart of client1 into db---");
-        client1.getLogin().generateCart();
-        cartDao.insert(client1.getLogin().getCart());
-
-        /*System.out.println();
-        System.out.println("---Deleting cart of client1 from db---");
-        cartDao.deleteById(client1.getLogin().getCart().getId());*/
-
         PurchaseItemsDao purchaseItemsDao = DaoFactory.createPurchaseItemsDao();
 
         System.out.println();
@@ -211,6 +217,25 @@ public class Program {
         client1.getLogin().getCart().finalizePurchase();
         Order orderC1 = client1.getLogin().getCart().getOrder();
         System.out.println(orderC1);
+
+        OrderDao orderDao = DaoFactory.createOrderDao();
+
+        System.out.println();
+        System.out.println("---find cart by id---");
+        System.out.println(cartDao.findById(client1.getLogin().getCart().getId(), orderDao, purchaseItemsDao,
+                productDao, productEspecificationDao));
+
+        System.out.println();
+        System.out.println("---inserting order Cart client1---");
+        orderDao.insert(orderC1);
+
+        /*System.out.println();
+        System.out.println("---Deleting order Cart client1---");
+        orderDao.deleteById(orderC1.getId());*/
+
+        System.out.println();
+        System.out.println("---find order by id---");
+        System.out.println(orderDao.findById(orderC1.getId()));
 
         //client1.getLogin().getCart().getOrder().createPayment(cartDao, client1.getLogin().getCart());
         //String invoice =  client1.getLogin().getCart().

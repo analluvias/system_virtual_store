@@ -12,6 +12,7 @@ public class Cart {
     private Integer id;
     private Order order;
 
+
     public Cart() {
         this.id = sequence++;
         generateOrder();
@@ -76,6 +77,10 @@ public class Cart {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public List<PurchaseItems> getPurchaseItemsList() {
