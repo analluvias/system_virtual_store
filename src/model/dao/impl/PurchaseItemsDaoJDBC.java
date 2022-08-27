@@ -5,6 +5,7 @@ import db.DbException;
 import model.dao.ProductDao;
 import model.dao.ProductEspecificationDao;
 import model.dao.PurchaseItemsDao;
+import model.entities.Cart;
 import model.entities.Product;
 import model.entities.PurchaseItems;
 
@@ -23,17 +24,18 @@ public class PurchaseItemsDaoJDBC implements PurchaseItemsDao {
     }
 
     @Override
-    public void insert(PurchaseItems obj) {
+    public void insert(PurchaseItems obj, Cart cart) {
         PreparedStatement st = null;
 
         try {
             st = conn.prepareStatement("INSERT INTO PURCHASEITEMS " +
-                    "(PRODUCTID_, QUANTITY_) " +
+                    "(PRODUCTID_, QUANTITY_, CARTID_) " +
                     "VALUES " +
-                    "(?, ?)", Statement.RETURN_GENERATED_KEYS);
+                    "(?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
             st.setInt(1, obj.getProduct().getId());
             st.setInt(2, obj.getQuantity());
+            st.setInt(3, cart.getId());
 
             int rowsAffected = st.executeUpdate();
 
@@ -118,7 +120,6 @@ public class PurchaseItemsDaoJDBC implements PurchaseItemsDao {
 
             rs = st.executeQuery();
 
-            //testando se veio algum registro
             if (rs.next()){
 
                 Product product = productDao.findById(rs.getInt("PRODUCTID_")
@@ -129,17 +130,14 @@ public class PurchaseItemsDaoJDBC implements PurchaseItemsDao {
                 return purchaseItems;
             }
 
-            //se não veio registro
             return null;
         }
         catch (SQLException e) {
             throw new DbException(e.getMessage());
         }
         finally {
-            //fechando o enviador de clausulas
             DB.closeStatement(st);
 
-            //fechando o recebedor de resultados
             DB.closeResultSet(rs);
         }
     }
@@ -182,10 +180,8 @@ public class PurchaseItemsDaoJDBC implements PurchaseItemsDao {
             throw new DbException(e.getMessage());
         }
         finally {
-            //fechando o enviador de clausulas
             DB.closeStatement(st);
 
-            //fechando o recebedor de resultados
             DB.closeResultSet(rs);
         }
     }

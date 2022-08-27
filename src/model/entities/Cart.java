@@ -14,6 +14,7 @@ public class Cart {
 
     public Cart() {
         this.id = sequence++;
+        generateOrder();
     }
 
     public void insertPurchaseItem(PurchaseItems purchaseItems){
@@ -28,14 +29,6 @@ public class Cart {
         }
     }
 
-    public void updatePurchaseItemQuantity(PurchaseItems purchaseItems, Integer quantity){
-        for (PurchaseItems purchaseItem : purchaseItemsList) {
-            if (purchaseItems.getId() == purchaseItem.getId()){
-                purchaseItem.setQuantity(quantity);
-            }
-        }
-    }
-
     public Double totalCart(){
         Double total = 0.0;
         for (PurchaseItems purchaseItem : purchaseItemsList) {
@@ -45,9 +38,13 @@ public class Cart {
         return total;
     }
 
+    public void generateOrder(){
+        this.order = OrderFactory.createOrder(0.0);
+    }
+
     public void finalizePurchase(){
         Double total = totalCart();
-        this.order = OrderFactory.createOrder(total);
+        this.order.setTotal(total);
     }
 
     public String printPurchaseItems(){
@@ -67,6 +64,10 @@ public class Cart {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override

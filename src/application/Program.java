@@ -82,34 +82,6 @@ public class Program {
         PurchaseItems purchaseItems2 = new PurchaseItems(product3, 1);
         PurchaseItems purchaseItems3 = new PurchaseItems(product4, 3);
 
-        PurchaseItemsDao purchaseItemsDao = DaoFactory.createPurchaseItemsDao();
-
-        System.out.println();
-        System.out.println("---Inserting purchaseItems 1, 2 and 3 into db--- ");
-        purchaseItemsDao.insert(purchaseItems1);
-        purchaseItemsDao.insert(purchaseItems2);
-        purchaseItemsDao.insert(purchaseItems3);
-
-        System.out.println();
-        System.out.println("---Updating purchaseItems1 quantity---");
-        purchaseItems1.setQuantity(2);
-        purchaseItemsDao.update(purchaseItems1);
-
-        /*System.out.println();
-        System.out.println("---Deleting purchaseitems1---");
-        purchaseItemsDao.deleteById(purchaseItems1.getId());*/
-
-        System.out.println();
-        System.out.println("---finding purchaseItems by id---");
-        PurchaseItems purchaseItemsFindById = purchaseItemsDao.findById
-                (purchaseItems3.getId(), productDao, productEspecificationDao);
-        System.out.println(purchaseItemsFindById);
-
-        System.out.println();
-        System.out.println("---listing all purchaseItems---");
-        List<PurchaseItems> purchaseItems = purchaseItemsDao.findAll(productDao, productEspecificationDao);
-        purchaseItems.stream().forEach((purch) -> System.out.println(purch));
-
         ClientDao clientDao = DaoFactory.createClientDao();
 
         Client client1 = new Client("joao", "joao@gmail.com", "123",
@@ -129,12 +101,12 @@ public class Program {
         LoginDao loginDao = DaoFactory.createLoginDao();
 
         loginDao.insert(login1);
-        System.out.println("insert into BD: " + login1.getId());
+        System.out.println("insert login into BD: " + login1.getId());
 
         Login login2 = client2.getLogin();
 
         loginDao.insert(login2);
-        System.out.println("insert into BD: " + login2.getId());
+        System.out.println("insert login into BD: " + login2.getId());
 
         System.out.println();
         Login search = loginDao.findBYId(login1.getId());
@@ -175,12 +147,12 @@ public class Program {
         clientDao.deleteById(client1.getId());*/
 
         System.out.println();
-        System.out.println("Find by id: ");
+        System.out.println("Find client by id: ");
         Client searchedByidClient = clientDao.findById(client1.getId(), loginDao);
         System.out.println(searchedByidClient);
 
         System.out.println();
-        System.out.println("Find all: ");
+        System.out.println("Find all clients: ");
         List<Client> clients = clientDao.findAll(loginDao);
         clients.stream().forEach((client_) -> System.out.println(client_));
 
@@ -189,13 +161,53 @@ public class Program {
         Client clientByLoginId = clientDao.findByLogin(login1, loginDao);
         System.out.println(clientByLoginId);
 
-        client1.getLogin().getCart().insertPurchaseItem(purchaseItems1);
-        client1.getLogin().getCart().insertPurchaseItem(purchaseItems2);
-        client1.getLogin().getCart().insertPurchaseItem(purchaseItems3);
-        System.out.println();
-        System.out.println(client1.getLogin().getCart().toString());
+        CartDao cartDao = DaoFactory.createCartDao();
 
+        System.out.println();
+        System.out.println("---Inserting cart of client1 into db---");
+        client1.getLogin().generateCart();
+        cartDao.insert(client1.getLogin().getCart());
+
+        /*System.out.println();
+        System.out.println("---Deleting cart of client1 from db---");
+        cartDao.deleteById(client1.getLogin().getCart().getId());*/
+
+        System.out.println();
+        System.out.println("---finalizing purchase---");
         client1.getLogin().getCart().finalizePurchase();
+        Order orderC1 = client1.getLogin().getCart().getOrder();
+
+
+        PurchaseItemsDao purchaseItemsDao = DaoFactory.createPurchaseItemsDao();
+
+        System.out.println();
+        System.out.println("---Inserting purchaseItems 1, 2 and 3 into db--- ");
+        purchaseItemsDao.insert(purchaseItems1, client1.getLogin().getCart());
+        purchaseItemsDao.insert(purchaseItems2, client1.getLogin().getCart());
+        purchaseItemsDao.insert(purchaseItems3, client1.getLogin().getCart());
+
+        System.out.println();
+        System.out.println("---Updating purchaseItems1 quantity---");
+        purchaseItems1.setQuantity(2);
+        purchaseItemsDao.update(purchaseItems1);
+
+        /*System.out.println();
+        System.out.println("---Deleting purchaseitems1---");
+        purchaseItemsDao.deleteById(purchaseItems1.getId());*/
+
+        System.out.println();
+        System.out.println("---finding purchaseItems by id---");
+        PurchaseItems purchaseItemsFindById = purchaseItemsDao.findById
+                (purchaseItems3.getId(), productDao, productEspecificationDao);
+        System.out.println(purchaseItemsFindById);
+
+        System.out.println();
+        System.out.println("---listing all purchaseItems---");
+        List<PurchaseItems> purchaseItems = purchaseItemsDao.findAll(productDao, productEspecificationDao);
+        purchaseItems.stream().forEach((purch) -> System.out.println(purch));
+
+
+        client1.getLogin().getCart().generateOrder();
         client1.getLogin().getCart().getOrder().createPayment();
         String invoice =  client1.getLogin().getCart().
                 getOrder().getPayment().generatePayment(client1, client1.getLogin().getCart(),

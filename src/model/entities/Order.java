@@ -44,6 +44,18 @@ public class Order {
         return total;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
     @Override
     public String toString() {
         return "Order{" +

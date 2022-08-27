@@ -4,6 +4,7 @@ import db.DB;
 import model.dao.ClientDao;
 import model.dao.LoginDao;
 import model.dao.impl.*;
+import model.entities.Cart;
 import model.entities.PurchaseItems;
 
 public class DaoFactory {
@@ -25,5 +26,9 @@ public class DaoFactory {
 
     public static ProductDao createProductDao(){
         return new ProductDaoJDBC(DB.getConnection());
+    }
+
+    public static CartDao createCartDao(){
+        return new CartDaoJDBC(DB.getConnection());
     }
 }
