@@ -1,5 +1,6 @@
 package model.entities;
 
+import model.dao.CartDao;
 import model.entities.enums.Status;
 import model.factories.PaymentFactory;
 import model.services.Payment;
@@ -14,22 +15,20 @@ public class Order {
     private Payment payment;
     private Double total;
 
-    private Status status;
 
     public Order(Double total) {
-        this.status = Status.OPENED;
         this.number = sequenceNumber++;
         this.id = sequence++;
         this.total = total;
     }
 
-    public void createPayment(){
-        closeOrder();
+    public void createPayment(CartDao cartDao, Cart cart){
+        closeOrder(cartDao, cart);
         this.payment = PaymentFactory.createPayment();
     }
 
-    private void closeOrder(){
-        this.status = Status.CLOSED;
+    private void closeOrder(CartDao cartDao, Cart cart){
+        cartDao.deleteById(cart.getId());
     }
 
     public Payment getPayment() {
@@ -59,9 +58,9 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
-                "id=" + id +
+                "number=" + number +
                 ", payment=" + payment +
-                ", status=" + status +
+                ", total=" + total +
                 '}';
     }
 }

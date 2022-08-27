@@ -29,6 +29,14 @@ public class Cart {
         }
     }
 
+    public void updatePurchaseItemQuantity(PurchaseItems purchaseItems, Integer quantity){
+        for (PurchaseItems purchaseItem : purchaseItemsList) {
+            if (purchaseItems.getId() == purchaseItem.getId()){
+                purchaseItem.setQuantity(quantity);
+            }
+        }
+    }
+
     public Double totalCart(){
         Double total = 0.0;
         for (PurchaseItems purchaseItem : purchaseItemsList) {
@@ -68,6 +76,10 @@ public class Cart {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public List<PurchaseItems> getPurchaseItemsList() {
+        return purchaseItemsList;
     }
 
     @Override
