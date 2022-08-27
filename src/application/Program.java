@@ -1,6 +1,7 @@
 package application;
 
 import model.dao.*;
+import model.dao.impl.CartDaoJDBC;
 import model.entities.*;
 
 import java.util.List;
@@ -172,19 +173,17 @@ public class Program {
         System.out.println("---Deleting cart of client1 from db---");
         cartDao.deleteById(client1.getLogin().getCart().getId());*/
 
-        System.out.println();
-        System.out.println("---finalizing purchase---");
-        client1.getLogin().getCart().finalizePurchase();
-        Order orderC1 = client1.getLogin().getCart().getOrder();
-
-
         PurchaseItemsDao purchaseItemsDao = DaoFactory.createPurchaseItemsDao();
 
         System.out.println();
         System.out.println("---Inserting purchaseItems 1, 2 and 3 into db--- ");
-        purchaseItemsDao.insert(purchaseItems1, client1.getLogin().getCart());
-        purchaseItemsDao.insert(purchaseItems2, client1.getLogin().getCart());
-        purchaseItemsDao.insert(purchaseItems3, client1.getLogin().getCart());
+        client1.getLogin().getCart().insertPurchaseItem(purchaseItems1);
+        client1.getLogin().getCart().insertPurchaseItem(purchaseItems2);
+        client1.getLogin().getCart().insertPurchaseItem(purchaseItems3);
+        List<PurchaseItems> purchaseItemsList = client1.getLogin().getCart().getPurchaseItemsList();
+        for (PurchaseItems pItems: purchaseItemsList) {
+            purchaseItemsDao.insert(pItems, client1.getLogin().getCart());
+        }
 
         System.out.println();
         System.out.println("---Updating purchaseItems1 quantity---");
@@ -206,15 +205,19 @@ public class Program {
         List<PurchaseItems> purchaseItems = purchaseItemsDao.findAll(productDao, productEspecificationDao);
         purchaseItems.stream().forEach((purch) -> System.out.println(purch));
 
-
+        System.out.println();
+        System.out.println("---finalizing purchase---");
         client1.getLogin().getCart().generateOrder();
-        client1.getLogin().getCart().getOrder().createPayment();
-        String invoice =  client1.getLogin().getCart().
-                getOrder().getPayment().generatePayment(client1, client1.getLogin().getCart(),
-                        client1.getLogin().getCart().getOrder());
+        client1.getLogin().getCart().finalizePurchase();
+        Order orderC1 = client1.getLogin().getCart().getOrder();
+        System.out.println(orderC1);
+
+        //client1.getLogin().getCart().getOrder().createPayment(cartDao, client1.getLogin().getCart());
+        //String invoice =  client1.getLogin().getCart().
+                //getOrder().getPayment().generatePayment(client1, client1.getLogin().getCart(),
+                        //client1.getLogin().getCart().getOrder());
 
         System.out.println();
-        System.out.println(invoice);
     }
 
 }
