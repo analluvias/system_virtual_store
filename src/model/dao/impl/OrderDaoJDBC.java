@@ -3,11 +3,14 @@ package model.dao.impl;
 import db.DB;
 import db.DbException;
 import model.dao.OrderDao;
+import model.dao.PurchaseItemsDao;
 import model.entities.Client;
 import model.entities.Login;
 import model.entities.Order;
+import model.entities.PurchaseItems;
 
 import java.sql.*;
+import java.util.List;
 
 public class OrderDaoJDBC implements OrderDao {
 
@@ -106,6 +109,14 @@ public class OrderDaoJDBC implements OrderDao {
 
 
             DB.closeResultSet(rs);
+        }
+    }
+
+    public void closeOrder(PurchaseItemsDao purchaseItemsDao,
+                           List<PurchaseItems> list){
+
+        for (PurchaseItems purch: list) {
+            purchaseItemsDao.deleteById(purch.getId());
         }
     }
 
