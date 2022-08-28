@@ -1,5 +1,6 @@
 package model.factories;
 
+import model.entities.Order;
 import model.services.Payment;
 
 public class PaymentFactory {

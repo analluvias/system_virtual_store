@@ -1,6 +1,9 @@
 package model.dao;
 
 import model.entities.Order;
+import model.entities.PurchaseItems;
+
+import java.util.List;
 
 public interface OrderDao {
 
@@ -9,4 +12,7 @@ public interface OrderDao {
     void deleteById(Integer id);
 
     Order findById(Integer id);
+
+    public void closeOrder(PurchaseItemsDao purchaseItemsDao,
+                           List<PurchaseItems> list);
 }

@@ -237,10 +237,12 @@ public class Program {
         System.out.println("---find order by id---");
         System.out.println(orderDao.findById(orderC1.getId()));
 
-        //client1.getLogin().getCart().getOrder().createPayment(cartDao, client1.getLogin().getCart());
-        //String invoice =  client1.getLogin().getCart().
-                //getOrder().getPayment().generatePayment(client1, client1.getLogin().getCart(),
-                        //client1.getLogin().getCart().getOrder());
+        orderC1.createPayment();
+
+
+        System.out.println(orderC1.getPayment().generatePayment(clientDao, loginDao, productDao, cartDao, orderDao,
+                purchaseItemsDao, productEspecificationDao, client1, client1.getLogin().getCart(),
+                client1.getLogin().getCart().getOrder(), client1.getLogin().getCart().getPurchaseItemsList()));
 
         System.out.println();
     }

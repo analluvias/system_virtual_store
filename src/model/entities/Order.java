@@ -1,9 +1,12 @@
 package model.entities;
 
 import model.dao.CartDao;
+import model.dao.PurchaseItemsDao;
 import model.entities.enums.Status;
 import model.factories.PaymentFactory;
 import model.services.Payment;
+
+import java.util.List;
 
 public class Order {
     private static Integer sequence=0;
@@ -22,13 +25,8 @@ public class Order {
         this.total = total;
     }
 
-    public void createPayment(CartDao cartDao, Cart cart){
-        closeOrder(cartDao, cart);
+    public void createPayment(){
         this.payment = PaymentFactory.createPayment();
-    }
-
-    private void closeOrder(CartDao cartDao, Cart cart){
-        cartDao.deleteById(cart.getId());
     }
 
     public Payment getPayment() {
